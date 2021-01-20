@@ -55,6 +55,7 @@ public class TokenAuthenticationFilter extends UsernamePasswordAuthenticationFil
         List<String> authorities = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         String token = JWT.create()
                 .withSubject(subject)
+                .withClaim("role","authorities")
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SECRET));
 
