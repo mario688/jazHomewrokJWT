@@ -50,9 +50,9 @@ public class TokenAuthorizationFilter extends BasicAuthenticationFilter {
                     .build()
                     .verify(token.replace(TOKEN_PREFIX, ""));
             String user = decoded.getSubject();
-            List<SimpleGrantedAuthority> authorities= decoded.getClaim("authorities").asList(SimpleGrantedAuthority.class);
+             List<SimpleGrantedAuthority> role= decoded.getClaim("role").asList(SimpleGrantedAuthority.class);
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, user, List.of(() -> "ROLE_ADMIN"));
+                 return new UsernamePasswordAuthenticationToken(user, user, role);
             }
             return null;
         }
